@@ -1,0 +1,32 @@
+DBSCAN (Density based spatial clustering of applications with noise) algorithm has 2 parameters.
+  1) eps: maximum radius of neighbourhood
+  2) minPts: minimum number of of points in the eps-neighborhood of a point
+eps-neighborhood of a point 'q' is defined by 
+      N.eps(q)={p belongs to D| dist(p,q)<=eps }
+      
+Types of points:
+  1) core point: dense neighbourhood (eps neighborhood containing points >= minPts)
+  2) border point: A points which belongs to some cluster but its neighborhood is not dense.
+  3) outlier/noise: A point which doesnt belong to any cluster
+  
+Types of linkages:
+  1) Directly density-reachable: p is directly density reachable from q if:
+    a) p belongs to N.eps(q)
+    b) q is a core point |N.eps(q)|>=minPts
+  2) Density-reachable: p is density reachable from q if:
+    a) there are chain of points (p1..pn), p1=q and pn=p, such that p(i+1) is directly density reachable from p(i). [transitive property]
+  3) Density-connected: p is density connected to q if:
+    a) If both p and q are density connected from another point o.
+
+
+Important note: linkages are not commutativein nature that is if p is density reachabel from q, then it does not mean that q is density reachable from p
+
+
+DBSCAN Algorithm:
+Step1: Arbitrarily select a point p
+Step2: Retrieve all points that are density reachabel from p ( If p is core point then a cluster is formed, if p is a border point then no cluster is formed and algorithm selects next point).
+Step3: Repeat above two steps until all points are processed.
+
+
+Cons of DBSCAN:
+It is highly sensity to eps and minPts parameters, resulting to very different clustering result for each setting
